@@ -1,11 +1,11 @@
 <mat-card>
     <mat-card-title class="margin">
-        {{ title }}
+        {{ card ? title : 'Please pick a card' }}
     </mat-card-title>
 
 
 
     <mat-card-content>
-{{ description }}
+        {{ card ?  description : 'Click on the card stack to pick a card' }}
     </mat-card-content>
 </mat-card>
