@@ -17,7 +17,10 @@
         <!-- Current card animation -->
         <img (click)="takeCard()" *ngIf="pickCardAnimation" style="right: 25px;" class="pick-card"
             src="/assets/img/Cards/{{ currentCard }}.png">
-
-
     </div>
 </div>
+
+
+<button mat-fab color="primary" (click)="openDialog()" class="btn-add">
+    <mat-icon>add</mat-icon>
+</button>

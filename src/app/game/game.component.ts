@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Game } from 'src/models/game';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player.component';
+
 
 
 @Component({
@@ -14,6 +17,7 @@ export class GameComponent implements OnInit {
   currentCard: string = '';  // das geht auch so "currentCard?" oder "currentCard : string = '' | undefined"
   game!: Game; //Das "!" gibt an dass die variable "game" irgendwann später im Code initialisiert wird und TypeScript davon ausgehen sollte, dass sie immer einen Wert hat. Auch "definite assignment assertion". 
 
+  constructor(public dialog: MatDialog){}
 
   ngOnInit() {
     this.newGame();
@@ -37,4 +41,14 @@ export class GameComponent implements OnInit {
       }, 1000);
     }
   }
+
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(DialogAddPlayerComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
 }
+
