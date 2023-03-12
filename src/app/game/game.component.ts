@@ -11,6 +11,7 @@ import { Game } from 'src/models/game';
 
 export class GameComponent implements OnInit {
   pickCardAnimation = false;
+  currentCard: string = '';  // das geht auch so "currentCard?" oder "currentCard : string = '' | undefined"
   game!: Game; //Das "!" gibt an dass die variable "game" irgendwann später im Code initialisiert wird und TypeScript davon ausgehen sollte, dass sie immer einen Wert hat. Auch "definite assignment assertion". 
 
 
@@ -21,12 +22,19 @@ export class GameComponent implements OnInit {
 
   newGame() {
     this.game = new Game();
-    console.log(this.game);
-  }
-  
-  
-  takeCard() {
-    this.pickCardAnimation = true;
   }
 
+
+  takeCard() {
+    const card = this.game.stack.pop(); // wieso kann das überhaupt einen undefined Wert zurückgeben ??
+    if (card && !this.pickCardAnimation) {
+      this.currentCard = card;
+      this.pickCardAnimation = true;
+      
+      setTimeout(() => {
+        this.game.playedCard.push(this.currentCard);
+        this.pickCardAnimation = false;
+      }, 1000);
+    }
+  }
 }
