@@ -42,15 +42,14 @@ export class GameComponent implements OnInit {
     this.route.params.subscribe((params) => {
 
 
-      if (params['id']) {
+      // if (params['id']) {
 
         const collectionReference = collection(this.firestore, 'games');
-        console.log(params['id']);
         const documentReference = doc(collectionReference, params['id']);
 
         docData(documentReference, { idField: 'game' }).subscribe(game => console.log(game));
 
-      }
+      // }
     });
   }
 
