@@ -26,34 +26,39 @@ export class GameComponent implements OnInit {
 
   constructor(private firestore: Firestore, private route: ActivatedRoute, public dialog: MatDialog) {
 
-    const aCollection = collection(this.firestore, 'games');
-    this.items$ = collectionData(aCollection);
+    // const aCollection = collection(this.firestore, 'games');
+    // this.items$ = collectionData(aCollection);
 
-    // subscribe (auf deutsch abonnieren) wird verwendet wenn man aus der Datenbank Daten holen möchte die sich regelmäßig ändern
-    this.items$.subscribe((newItems$) => {
-      this.games = newItems$;
-    });
-
+    // subscribe(auf deutsch abonnieren) wird verwendet wenn man aus der Datenbank Daten holen möchte die sich regelmäßig ändern
+    // this.items$.subscribe((newItems$) => {
+    //   this.games = newItems$;
+    // });
   }
 
 
   ngOnInit() {
-
     this.newGame();
-    this.route.params.subscribe((params) => {
-      // console.log(params['id']);
 
+    this.route.params.subscribe((params) => {
+
+
+      if (params['id']) {
+
+        const collectionReference = collection(this.firestore, 'games');
+        console.log(params['id']);
+        const documentReference = doc(collectionReference, params['id']);
+
+        docData(documentReference, { idField: 'game' }).subscribe(game => console.log(game));
+
+      }
     });
-    // this.docRef = doc(collection(this.firestore, 'games'), params['id']);
-    // this.items$ = docData(this.docRef);
-    // });
   }
 
 
   async newGame() {
     this.game = new Game();
-    // const coll = collection(this.firestore, "games"); // hole die collection in Firestore an der Stelle "todos"
-    // let gameInfo = await addDoc(coll, { name: this.game.toJson() });         // setze einen neuen Wert
+    const coll = collection(this.firestore, "games");                        // hole die collection in Firestore an der Stelle "todos"
+    let gameInfo = await addDoc(coll, { name: this.game.toJson() });         // setze einen neuen Wert
   }
 
 
