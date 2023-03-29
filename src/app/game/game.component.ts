@@ -47,7 +47,7 @@ export class GameComponent implements OnInit {
         const collectionReference = collection(this.firestore, 'games');
         const documentReference = doc(collectionReference, params['id']);
 
-        docData(documentReference, { idField: 'game' }).subscribe(game => console.log(game));
+        docData(documentReference, { idField: 'name' }).subscribe(game => console.log(game));
 
       // }
     });
