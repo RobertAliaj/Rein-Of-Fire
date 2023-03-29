@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Game } from 'src/models/game';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player.component';
-
+import { Firestore, collectionData, collection, getFirestore, setDoc, doc, addDoc, getDoc, docData } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { DomElementSchemaRegistry } from '@angular/compiler';
 
 
 @Component({
@@ -13,24 +16,49 @@ import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player
 
 
 export class GameComponent implements OnInit {
+
   pickCardAnimation = false;
-  currentCard: string = '';  // das geht auch so "currentCard?" oder "currentCard : string = '' | undefined"
-  game!: Game; //Das "!" gibt an dass die variable "game" irgendwann später im Code initialisiert wird und TypeScript davon ausgehen sollte, dass sie immer einen Wert hat. Auch "definite assignment assertion". 
+  currentCard: string = '';
+  game!: Game;
 
-  constructor(public dialog: MatDialog) { }
+  items$!: Observable<any>;
+  games!: Array<any>;
 
-  ngOnInit() {
-    this.newGame();
+  constructor(private firestore: Firestore, private route: ActivatedRoute, public dialog: MatDialog) {
+
+    const aCollection = collection(this.firestore, 'games');
+    this.items$ = collectionData(aCollection);
+
+    // subscribe (auf deutsch abonnieren) wird verwendet wenn man aus der Datenbank Daten holen möchte die sich regelmäßig ändern
+    this.items$.subscribe((newItems$) => {
+      this.games = newItems$;
+    });
+
   }
 
 
-  newGame() {
+  ngOnInit() {
+
+    this.newGame();
+    this.route.params.subscribe((params) => {
+      // console.log(params['id']);
+
+    });
+    // this.docRef = doc(collection(this.firestore, 'games'), params['id']);
+    // this.items$ = docData(this.docRef);
+    // });
+  }
+
+
+  async newGame() {
     this.game = new Game();
+    // const coll = collection(this.firestore, "games"); // hole die collection in Firestore an der Stelle "todos"
+    // let gameInfo = await addDoc(coll, { name: this.game.toJson() });         // setze einen neuen Wert
   }
 
 
   takeCard() {
-    const card = this.game.stack.pop(); // wieso kann das überhaupt einen undefined Wert zurückgeben ??
+    const card = this.game.stack.pop();
     if (card && !this.pickCardAnimation) {
       this.currentCard = card;
       this.pickCardAnimation = true;
@@ -54,5 +82,6 @@ export class GameComponent implements OnInit {
       }
     });
   }
-}
 
+
+}

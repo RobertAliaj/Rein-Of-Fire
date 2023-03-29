@@ -12,8 +12,18 @@ export class Game {
             this.stack.push('hearts_' + i);
         }
         this.shuffle();
+
+
     }
 
+    public toJson() {
+        return {
+            players: this.players,
+            stack: this.stack,
+            playedCard: this.playedCard,
+            currentPlayer: this.currentPlayer
+        }
+    }
     shuffle() {
         for (let i = this.stack.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));

@@ -6,9 +6,16 @@
           "ring-of-fire-aec4e"
         ]
       }
+    },
+    "ring-of-fire-a1255": {
+      "hosting": {
+        "Ring-Of-Fire": [
+          "ring-of-fire-a1255"
+        ]
+      }
     }
   },
   "projects": {
-    "default": "ring-of-fire-aec4e"
+    "default": "ring-of-fire-a1255"
   }
 }

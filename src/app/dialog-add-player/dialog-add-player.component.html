@@ -1,19 +1,20 @@
-<h1 mat-dialog-title>Add new player</h1>
-
+<h1 mat-dialog-title>Add new player</h1> <!--Die Zeile in dem Inputfelf (Dialog)-->
 
 <div mat-dialog-content>
 
-  <p>Please enter the name of the player</p>
+  <p>Please enter the name of the player</p> 
 
   <mat-form-field appearance="fill">
     <mat-label> Name</mat-label>
-    <input matInput [(ngModel)]="name">
+    <input matInput [(ngModel)]="name">  <!-- [(ngModel)]="name" ist eine Angular Syntax die den Wert aus dem Inputfeld zieht und den an die Variable "name" zuweist-->
   </mat-form-field>
-
 </div>
 
 
 <div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">No Thanks</button>
-  <button mat-button [disabled]="name.length == 0" [mat-dialog-close]="name" cdkFocusInitial>Ok</button>
+  <button mat-button (click)="onNoClick()">No Thanks</button>    <!-- Schließe das InputFeld(Dialog) -->
+  <button mat-button [disabled]="name.length == 0" [mat-dialog-close]="name" cdkFocusInitial>Ok</button> 
+  <!-- Wenn die Länge von dem Namen gleich 0 ist dann ist der Button dieasbled -->
+  <!--Die "[mat-dialog-close]="name"" wird nur ausgeführt wenn die Variable "name" true ist
+  Nachdem sie ausgeführt wird, übergibt sie den Wert von der Variablen "name" an die Funktion "openDialog" in der Methode "afterClosed" weiter-->
 </div>
