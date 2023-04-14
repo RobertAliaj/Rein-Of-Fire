@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { addDoc, collection, Firestore } from '@angular/fire/firestore';
-import { ActivatedRoute, Router } from '@angular/router';
+import {  Router } from '@angular/router';
 import { Game } from 'src/models/game';
 
 @Component({
@@ -12,7 +12,7 @@ export class StartScreenComponent {
 
   game!: Game;
 
-  constructor(private router: Router, private route: ActivatedRoute, private firestore: Firestore) { }
+  constructor(private router: Router, private firestore: Firestore) { }
 
 
 

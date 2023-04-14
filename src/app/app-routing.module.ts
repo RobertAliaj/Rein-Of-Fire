@@ -5,7 +5,8 @@ import { StartScreenComponent } from './start-screen/start-screen.component';
 
 const routes: Routes = [
   {path: '', component: StartScreenComponent},
-  // {path: 'game', component: GameComponent},
+
+  // durch den Doppelpunkt wird gesagt das diese Route über eine Variable verfügt 
   {path: 'game/:id', component: GameComponent}
 ];
 
