@@ -27,6 +27,16 @@
         width: 30vw;
         height: auto;
 
+        @media(max-width:800px) {
+            width: 52%;
+        }
+
+
+        @media(max-width:600px) {
+            width: 80%;
+        }
+
+
         &:hover {
             filter: brightness(1.2);
         }

@@ -1,8 +1,15 @@
-<app-player *ngFor=" let player of game.players; let i = index;" class="player-position"
+<app-player *ngFor=" let player of game.players; let i = index;" class="player-position hide-mobile"
     [playerActive]="i == game.currentPlayer" [ngStyle]="{'top.px': 100 + (i * 80)}" [name]="player"></app-player>
 <!-- Die Variable "name" wird bei playerComponent definiert und kriegt hier ihren Wert der wiederum bei PlayerComponent verwendet werden kann
     "name" ist hier der jeweilige Name der sich im Json "players befindet" -->
 <!-- Das gleiche passiet mit playerActive -->
+
+
+<div class="scroll-container hide-desktop">
+    <app-player-mobile *ngFor=" let player of game.players; let i = index;"
+        [playerActive]="i == game.currentPlayer"
+        [name]="player"></app-player-mobile>
+</div>
 
 
 <div class="field">
