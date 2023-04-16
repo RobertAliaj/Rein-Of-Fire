@@ -8,6 +8,7 @@ import { Component, Input } from '@angular/core';
 export class PlayerMobileComponent {
 
   @Input() name!: string;
+  @Input() image = 'profile-2.jpg';   
   @Input() playerActive: boolean = false;
 
 
