@@ -6,10 +6,11 @@ export class Game {
     public currentPlayer: number = 0;
     public pickCardAnimation = false;
     public currentCard: string = '';
+    public gameOver = false;
 
 
     constructor() {
-        for (let i = 1; i < 2; i++) {
+        for (let i = 1; i < 14; i++) {
             this.stack.push('spade_' + i);
             this.stack.push('clubs_' + i);
             this.stack.push('diamonds_' + i);
@@ -20,6 +21,7 @@ export class Game {
 
     }
 
+
     public toJson() {
         return {
             player_images: this.player_images,
@@ -28,9 +30,12 @@ export class Game {
             playedCard: this.playedCard,
             currentPlayer: this.currentPlayer,
             pickCardAnimation: this.pickCardAnimation,
-            currentCard: this.currentCard
+            currentCard: this.currentCard,
+            gameOver: this.gameOver
         }
     }
+    
+    
     shuffle() {
         for (let i = this.stack.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));

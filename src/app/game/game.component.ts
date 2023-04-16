@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Game } from 'src/models/game';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player.component';
-import { Firestore, collectionData, collection, doc, docData, updateDoc } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import { Firestore, collection, doc, docData, updateDoc } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
 import { EditPlayerComponent } from '../edit-player/edit-player.component';
 
@@ -18,8 +17,6 @@ import { EditPlayerComponent } from '../edit-player/edit-player.component';
 export class GameComponent implements OnInit {
   game: Game;
   gameId: string;
-  gameOver: boolean = false;
-
 
   constructor(private firestore: Firestore, private route: ActivatedRoute, public dialog: MatDialog) { }
 
@@ -31,11 +28,9 @@ export class GameComponent implements OnInit {
 
   newGame() {
     this.game = new Game();
-
     this.route.params.subscribe((params) => {
-
+      
       this.gameId = params['id'];
-
       const collectionReference = collection(this.firestore, 'games');
       const documentReference = doc(collectionReference, params['id']);
 
@@ -47,6 +42,7 @@ export class GameComponent implements OnInit {
         this.game.currentPlayer = game['currentPlayer'];
         this.game.currentCard = game['currentCard'];
         this.game.pickCardAnimation = game['pickCardAnimation'];
+        this.game.gameOver = game['gameOver']
       });
     });
   }
@@ -56,7 +52,9 @@ export class GameComponent implements OnInit {
     const card = this.game.stack.pop();
 
     if (this.game.stack.length == 0) {
-      this.gameOver = true;
+      this.game.gameOver = true;
+      this.saveGame();
+
     } else if (card && !this.game.pickCardAnimation) {
       this.game.currentCard = card;
       this.game.pickCardAnimation = true;
@@ -86,12 +84,9 @@ export class GameComponent implements OnInit {
           this.game.player_images[playerId] = change;
         }
 
-
         this.saveGame();
       }
     });
-
-    console.log('Edit Player', playerId);
   }
 
 
@@ -109,7 +104,6 @@ export class GameComponent implements OnInit {
 
 
   async saveGame() {
-
     const collectionReference = collection(this.firestore, 'games');
     const documentReference = doc(collectionReference, this.gameId);
 

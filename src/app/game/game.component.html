@@ -9,14 +9,13 @@
 </div>
 
 
-<div *ngIf="gameOver" class="gameOver">
+<div *ngIf="game.gameOver" class="gameOver">
     <img src="assets/img/game-over.jpg">
 </div>
 
+<img *ngIf="!game.gameOver" class="preloadImg" src="assets/img/Cards/{{ game.stack[game.stack.length - 1] }}.png">
 
-<img *ngIf="!gameOver" class="preloadImg" src="assets/img/Cards/{{ game.stack[game.stack.length - 1] }}.png">
-
-<div class="field" *ngIf="!gameOver">
+<div class="field" *ngIf="!game.gameOver">
     <div class="card-stack">
         <!-- Card stack -->
         <img *ngFor="let c of [0, 1, 2, 3]; let i = index;" [ngStyle]="{'right.px': i * 5}"
@@ -33,8 +32,8 @@
     </div>
 </div>
 
-<app-game-info *ngIf="!gameOver" [card]="game.currentCard" class="pin-bottom"></app-game-info>
+<app-game-info *ngIf="!game.gameOver" [card]="game.currentCard" class="pin-bottom"></app-game-info>
 
-<button *ngIf="!gameOver" mat-fab color="primary" (click)="openDialog()" class="btn-add">
+<button *ngIf="!game.gameOver" mat-fab color="primary" (click)="openDialog()" class="btn-add">
     <mat-icon>add</mat-icon>
 </button>
