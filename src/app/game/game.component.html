@@ -1,19 +1,20 @@
-<app-player (click)="editPlayer(i)" *ngFor=" let player of game.players; let i = index;" class="player-position hide-desktop"
-    [playerActive]="i == game.currentPlayer" [ngStyle]="{'top.px': 20 + (i * 60)}" [name]="player" [image]="game.player_images[i]"></app-player>
+<app-player (click)="editPlayer(i)" *ngFor=" let player of game.players; let i = index;"
+    class="player-position hide-desktop" [playerActive]="i == game.currentPlayer" [ngStyle]="{'top.px': 20 + (i * 60)}"
+    [name]="player" [image]="game.player_images[i]"></app-player>
 
 
 <div class="scroll-container hide-mobile">
     <app-player-mobile (click)="editPlayer(i)" *ngFor=" let player of game.players; let i = index;"
-        [playerActive]="i == game.currentPlayer"
-        [name]="player"
-        [image]="game.player_images[i]"></app-player-mobile>
+        [playerActive]="i == game.currentPlayer" [name]="player" [image]="game.player_images[i]"></app-player-mobile>
 </div>
 
 
 <div *ngIf="gameOver" class="gameOver">
-    <img src="assets/img/game-over.jpg" style="width: 300px; height: 300px;">
+    <img src="assets/img/game-over.jpg">
 </div>
 
+
+<img *ngIf="!gameOver" class="preloadImg" src="assets/img/Cards/{{ game.stack[game.stack.length - 1] }}.png">
 
 <div class="field" *ngIf="!gameOver">
     <div class="card-stack">
